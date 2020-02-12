@@ -1,0 +1,10 @@
+query Restaurants {
+  restaurants {
+    name
+    id
+    companies {
+      name
+      id
+    }
+  }
+}

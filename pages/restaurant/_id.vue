@@ -2,7 +2,7 @@
 .Page
   N-link(to="/", class="button") Вернуться к поиску
   
-  pre {{$data}}
+  pre {{restaurants}}
 </template>
 
 <script>

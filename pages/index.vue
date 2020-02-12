@@ -3,21 +3,23 @@
 
   //- https://milligram.io/#getting-started
 
-  Spinner(
+  center(
     v-if="!restaurants.length"
-  )
+  ) Spinner
   div(v-else)
-    label Поиск
+    label Поиск ресторана
       input(
         type="search"
         v-model="keyword",
         placeholder="Искать по [Название ресторана]"
       )
+    center(v-show="!filteredData.length")
+      .button.button-clear(@click="keyword=''") не найдено, сбросить поиск
 
     table
       tr
         th(
-          v-for="th in th"
+          v-for="th in ['Название', 'юр.лицо']"
         ) {{th}}
       //- tbody
       tr(
@@ -27,7 +29,7 @@
         
       ) 
         td(
-          v-for="(It,key) in item"
+          v-for="(It,key) in cropId(item)"
         )
           .name(
             v-if="key === 'name'"
@@ -62,9 +64,9 @@ export default {
     }
   },
   computed: {
-    th() {
-      return this.restaurants.length && Object.keys(this.restaurants[0]);
-    },
+    // th() {
+    //   return this.restaurants.length && Object.keys(this.restaurants[0]);
+    // },
     filteredData() {
       return this.restaurants.filter(item => {
         return item.name.toLowerCase().includes(this.keyword.toLowerCase());
@@ -72,9 +74,12 @@ export default {
     }
   },
   methods: {
+    cropId(obj) {
+      const { id, ...rest } = obj;
+      return rest;
+    },
     mark(word) {
       const regex = new RegExp("(" + this.keyword + ")", "gi");
-      console.info(word);
       return word.replace(regex, "<mark>$1</mark>");
     }
   }

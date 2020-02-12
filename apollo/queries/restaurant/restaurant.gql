@@ -1,6 +1,15 @@
 query Restaurant($id: Int) {
   restaurants(where: {id: {_eq: $id}})  {
     name
-    id
+    tel
+    addres
+    companies {
+      name
+      addres
+      bik
+      inn
+      kpp
+      invoice
+    }
   }
 }

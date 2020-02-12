@@ -1,0 +1,6 @@
+query Restaurant($id: Int) {
+  restaurants(where: {id: {_eq: $id}})  {
+    name
+    id
+  }
+}

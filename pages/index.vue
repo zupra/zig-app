@@ -23,10 +23,19 @@
       tr(
         v-for="item in filteredData"
         :key="item.id"
+        @click="$router.push({ path: `/restaurant/${Number(item.id)}` })"
+        
       ) 
         td(
-          v-for="It in item"
-        ) {{It}}
+          v-for="(It,key) in item"
+        )
+          .name(
+            v-if="key === 'name'"
+            v-html="mark(It)"
+          )
+          span(
+            v-else
+          ) {{It}}
 
 
   
@@ -61,11 +70,21 @@ export default {
         return item.name.toLowerCase().includes(this.keyword.toLowerCase());
       });
     }
+  },
+  methods: {
+    mark(word) {
+      const regex = new RegExp("(" + this.keyword + ")", "gi");
+      console.info(word);
+      return word.replace(regex, "<mark>$1</mark>");
+    }
   }
 };
 </script>
 
 <style lang="stylus">
-.Page
-  margin 1em
+tr:not(:first-child)
+  cursor pointer
+
+  &:hover
+    background aliceblue
 </style>
